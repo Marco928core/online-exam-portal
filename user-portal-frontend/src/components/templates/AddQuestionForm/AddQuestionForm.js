@@ -8,6 +8,7 @@ import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import { getSubjectDetails } from '../../../redux/actions/subjectAction';
 import { addQuestionAction } from "../../../redux/actions/questionAction";
+import { TextareaAutosize } from "@material-ui/core";
 
 
 
@@ -39,6 +40,12 @@ const useStyles = ()=>({
   
   formTitle:{
     fontSize: '1.7em'
+  },
+  textarea : {
+    fontSize: '1.1em',
+    padding:'5px',
+    margin:'20px 20px 0px 0px',
+    minWidth:'60%'
   }
 })
 
@@ -50,7 +57,8 @@ class AddQuestionForm extends React.Component {
       options : ["","","",""],
       subject : "",
       answer : "",
-      marks : 1
+      marks : 1,
+      explanation : ""
     }
   }
 
@@ -71,7 +79,6 @@ class AddQuestionForm extends React.Component {
   }
 
   subjectInputHandler = (event) => {
-    console.log(event.target.value)
     this.setState({
       ...this.state,
       subject : event.target.value
@@ -89,6 +96,13 @@ class AddQuestionForm extends React.Component {
     this.setState({
       ...this.state,
       marks : event.target.value
+    })
+  }
+
+  explanationInputHandler = (event) => {
+    this.setState({
+      ...this.state,
+      explanation : event.target.value
     })
   }
 
@@ -238,6 +252,18 @@ class AddQuestionForm extends React.Component {
           <option value={this.state.options[3]}> option D</option>
 
         </Select>
+        <br/>
+        <InputLabel htmlFor='explanation-label' className={this.props.classes.optionInput}>Explanation</InputLabel>
+        <TextareaAutosize
+          variant='outlined'
+          color="primary"
+          id="explanation"
+          placeholder='enter explanation'
+          value={this.state.explanation}
+          onChange={(event)=>(this.explanationInputHandler(event))}
+          className={this.props.classes.textarea}
+          minRows={3}
+        />
         <br/>
         <Button 
           variant='contained'
